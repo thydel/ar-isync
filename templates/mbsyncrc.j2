@@ -1,0 +1,30 @@
+#jinja2: line_statement_prefix: "%", line_comment_prefix: "##"
+# -*- Mode: conf; -*-
+
+% for account in accounts
+IMAPAccount {{ account.id }}
+Host {{ account.host }}
+User {{ account.user }}
+PassCmd "pass imap/{{ account.id }}"
+SSLType IMAPS
+
+IMAPStore {{ account.id }}-master
+Account {{ account.id }}
+
+MaildirStore {{ account.id }}-slave
+Path {{ account.maildir }}/{{ account.id }}/
+Inbox {{ account.maildir }}/{{ account.id }}/Inbox
+SubFolders Verbatim
+
+Channel {{ account.id }}
+Master :{{ account.id }}-master:
+Slave :{{ account.id }}-slave:
+%   for pattern in account.patterns
+Patterns {{ pattern }}
+%-  endfor
+Create Both
+SyncState *
+% endfor
+##- Local Variables:
+##- Mode: jinja2
+##- End:

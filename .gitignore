@@ -1,0 +1,8 @@
+*~
+.cache/
+.retry/
+.hide/
+log/
+tmp/
+ext/
+README.html

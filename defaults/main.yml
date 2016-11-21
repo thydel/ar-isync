@@ -1,0 +1,8 @@
+---
+
+user: some.user@gmail.com
+host: imap.gmail.com
+maildir: ~/Maildir
+patterns:
+  - |
+    * ![Gmail]* "[Gmail]/Sent Mail" [Gmail]/Starred

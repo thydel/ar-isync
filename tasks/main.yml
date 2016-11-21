@@ -1,0 +1,31 @@
+---
+
+- assert:
+    that:
+      user != 'some.user@gmail.com'
+
+- git:
+    repo: '{{ repo }}'
+    dest: '{{ basedir }}'
+  tags: git
+
+- apt:
+    name: '{{ item }}'
+  with_items: '{{ deps }}'
+  become: True
+  tags: apt
+
+- with_nested: [ '{{ commands }}' ]
+  loop_control: { label: '{{ item[0] }}' }
+  become: '{{ item[3] }}'
+  command: '{{ item[1] }}'
+  args:
+    chdir: '{{ basedir }}'
+    creates: '{{ item[2] }}'
+  tags: install
+
+- template:
+    src: mbsyncrc.j2
+    dest: ~/.mbsyncrc
+    backup: True
+  tags: config

@@ -1,0 +1,10 @@
+---
+
+deps: [ autoconf, debhelper, dpkg-dev, libssl-dev, libdb-dev, libsasl2-dev ]
+repo: git://git.code.sf.net/p/isync/isync
+basedir: ext/isync-isync
+commands:
+  - [ autogen,   ./autogen.sh, configure,             False ]
+  - [ configure, ./configure,  Makefile,              False ]
+  - [ make,      make,         src/mbsync,            False ]
+  - [ install,   make install, /usr/local/bin/mbsync, True ]
