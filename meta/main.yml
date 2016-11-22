@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Thierry Delamare
+  description: compile install and configure isync
+  company: EpiConcept
+  license: MIT
+  min_ansible_version: 2.2
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+  galaxy_tags: [ maildir ]
+dependencies: []
