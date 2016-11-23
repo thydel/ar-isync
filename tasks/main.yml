@@ -1,9 +1,5 @@
 ---
 
-- assert:
-    that:
-      user != 'some.user@gmail.com'
-
 - git:
     repo: '{{ repo }}'
     dest: '{{ basedir }}'
@@ -29,3 +25,10 @@
     dest: ~/.mbsyncrc
     backup: True
   tags: config
+
+- file:
+    path: '{{ item.maildir }}/{{ item.id }}'
+    state: directory
+  with_items: '{{ accounts }}'
+  loop_control: { label: '{{ item.id }}' }
+  tags: dirs
