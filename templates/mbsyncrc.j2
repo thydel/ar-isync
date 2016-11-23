@@ -1,14 +1,18 @@
 #jinja2: line_statement_prefix: "%", line_comment_prefix: "##"
 # -*- Mode: conf; -*-
 
+% set nl = '\n'
 % for account in accounts
 IMAPAccount {{ account.id }}
 Host {{ account.host }}
 User {{ account.user }}
 PassCmd "pass imap/{{ account.id }}"
 SSLType IMAPS
+%  if account.PipelineDepth is defined
+PipelineDepth {{ account.PipelineDepth }}
+%  endif
 
-IMAPStore {{ account.id }}-master
+{{ nl }}IMAPStore {{ account.id }}-master
 Account {{ account.id }}
 
 MaildirStore {{ account.id }}-slave
