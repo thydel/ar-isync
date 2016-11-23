@@ -25,6 +25,8 @@
 ## links
 
 * [site](http://www.djcbsoftware.nl/code/mu/)
+* [Search-oriented tools for Unix-style mail](http://www.kmjn.org/notes/unix_style_mail_tools.html)
+  A brief comparison of mu and notmuch
 
 ## minimal invocation
 
