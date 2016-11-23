@@ -4,12 +4,14 @@
     repo: '{{ repo }}'
     dest: '{{ basedir }}'
   tags: git
+  name: get isync src
 
 - apt:
     name: '{{ item }}'
   with_items: '{{ deps }}'
   become: True
   tags: apt
+  name: install build tools
 
 - with_nested: [ '{{ commands }}' ]
   loop_control: { label: '{{ item[0] }}' }
@@ -19,12 +21,14 @@
     chdir: '{{ basedir }}'
     creates: '{{ item[2] }}'
   tags: install
+  name: configure compile and install isync
 
 - template:
     src: mbsyncrc.j2
     dest: ~/.mbsyncrc
     backup: True
   tags: config
+  name: generate isync user config
 
 - file:
     path: '{{ item.maildir }}/{{ item.id }}'
@@ -32,3 +36,10 @@
   with_items: '{{ accounts }}'
   loop_control: { label: '{{ item.id }}' }
   tags: dirs
+  name: crate user config induced dirs
+
+- apt:
+    name: maildir-utils
+  become: True
+  tags: mu
+  name: install mu for indexing
